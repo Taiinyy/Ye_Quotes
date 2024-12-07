@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-ye-navy via-black to-ye-navy min-h-screen text-white;
+  }
+}
+
+@layer components {
+  .geometric-shape {
+    @apply absolute pointer-events-none opacity-50;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .nav-link {
+    @apply relative text-white hover:text-ye-yellow transition-colors duration-300;
+  }
+
+  .nav-link::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-ye-yellow transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .quote-card {
+    @apply relative overflow-hidden rounded-xl;
+    background: rgba(28, 28, 35, 0.85);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .quote-card::before {
+    @apply content-[''] absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(45deg, 
+      rgba(255, 127, 0, 0.1), 
+      rgba(155, 48, 255, 0.1), 
+      rgba(255, 215, 0, 0.1)
+    );
+  }
+
+  .quote-card:hover::before {
+    @apply opacity-100;
+  }
+
+  .quote-card-inner {
+    @apply relative z-10;
+  }
+
+  .copy-button {
+    @apply opacity-70 hover:opacity-100 transition-opacity;
+  }
+
+  .copy-button:active {
+    @apply scale-95 transition-transform;
+  }
+}

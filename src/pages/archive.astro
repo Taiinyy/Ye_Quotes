@@ -1,0 +1,28 @@
+---
+import Layout from '@layouts/Layout.astro';
+import QuoteCard from '@components/QuoteCard.astro';
+
+// Fetch multiple quotes for the archive
+const quotes = await Promise.all(
+  Array(5).fill(null).map(async () => {
+    const response = await fetch('https://api.kanye.rest/');
+    const data = await response.json();
+    return {
+      quote: data.quote,
+      date: new Date().toLocaleDateString()
+    };
+  })
+);
+---
+
+<Layout title="YE Quotes - Archive">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-4xl font-bold text-center mb-12">Quote Archive</h1>
+    
+    <div class="space-y-8">
+      {quotes.map(({ quote, date }) => (
+        <QuoteCard quote={quote} date={date} />
+      ))}
+    </div>
+  </div>
+</Layout>

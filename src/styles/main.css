@@ -1,0 +1,214 @@
+/*
+ * YE QUOTES - Main Stylesheet
+ * Table of Contents:
+ * 1. Base Styles
+ * 2. Layout & Container
+ * 3. Typography
+ * 4. Header & Navigation
+ * 5. Quote Card
+ * 6. Buttons & Interactive Elements
+ * 7. Loading Spinner
+ * 8. Geometric Shapes
+ * 9. Animations
+ * 10. Utilities
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * 1. Base Styles
+ * ------------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-ye-navy via-black to-ye-navy min-h-screen text-white;
+  }
+}
+
+/*
+ * 2. Layout & Container
+ * ------------------------------------------------------------------------ */
+@layer components {
+  .container {
+    @apply mx-auto px-4;
+  }
+
+  .main-content {
+    @apply pt-32 pb-12 relative z-10;
+  }
+}
+
+/*
+ * 3. Typography
+ * ------------------------------------------------------------------------ */
+@layer components {
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-ye animate-gradient-shift bg-[size:200%];
+  }
+
+  .page-title {
+    @apply text-6xl font-black text-center mb-16 tracking-tight leading-none;
+  }
+
+  .subtitle {
+    @apply text-2xl mt-4 font-bold text-ye-silver;
+  }
+}
+
+/*
+ * 4. Header & Navigation
+ * ------------------------------------------------------------------------ */
+@layer components {
+  .header {
+    @apply fixed w-full top-0 z-50 backdrop-blur-md bg-black/30;
+  }
+
+  .nav-link {
+    @apply relative text-white hover:text-ye-yellow transition-colors duration-300;
+  }
+
+  .nav-link::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-ye-yellow transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+}
+
+/*
+ * 5. Quote Card
+ * ------------------------------------------------------------------------ */
+@layer components {
+  .quote-card {
+    @apply relative overflow-hidden rounded-xl p-8 transform hover:scale-[1.02] transition-all duration-300;
+    background: rgba(28, 28, 35, 0.85);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .quote-card::before {
+    @apply content-[''] absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: linear-gradient(45deg, 
+      rgba(255, 127, 0, 0.1), 
+      rgba(155, 48, 255, 0.1), 
+      rgba(255, 215, 0, 0.1)
+    );
+  }
+
+  .quote-card:hover::before {
+    @apply opacity-100;
+  }
+
+  .quote-card-inner {
+    @apply relative z-10;
+  }
+
+  .quote-text {
+    @apply text-3xl font-bold mb-6 leading-relaxed gradient-text;
+  }
+
+  .quote-date {
+    @apply text-ye-silver text-sm;
+  }
+
+  .quote-attribution {
+    @apply text-right text-ye-yellow mt-6 font-bold;
+  }
+}
+
+/*
+ * 6. Buttons & Interactive Elements
+ * ------------------------------------------------------------------------ */
+@layer components {
+  .copy-button {
+    @apply opacity-70 hover:opacity-100 transition-opacity flex items-center justify-center p-2 rounded-lg hover:bg-white/10;
+  }
+
+  .copy-button:active {
+    @apply scale-95 transition-transform;
+  }
+
+  .new-quote-button {
+    @apply px-8 py-4 rounded-lg font-bold text-lg relative overflow-hidden group;
+  }
+
+  .new-quote-button-gradient {
+    @apply absolute inset-0 bg-gradient-ye opacity-80 group-hover:opacity-100 transition-opacity;
+  }
+
+  .new-quote-button-text {
+    @apply relative text-black font-black tracking-wide;
+  }
+}
+
+/*
+ * 7. Loading Spinner
+ * ------------------------------------------------------------------------ */
+@layer components {
+  .loading-spinner {
+    @apply relative w-16 h-16;
+  }
+
+  .loading-spinner-track {
+    @apply absolute inset-0 rounded-full border-4 border-ye-yellow/20;
+  }
+
+  .loading-spinner-indicator {
+    @apply absolute inset-0 rounded-full border-4 border-transparent border-t-ye-yellow animate-spin;
+  }
+}
+
+/*
+ * 8. Geometric Shapes
+ * ------------------------------------------------------------------------ */
+@layer components {
+  .geometric-shapes-container {
+    @apply fixed inset-0 overflow-hidden pointer-events-none z-0;
+  }
+
+  .geometric-shape {
+    @apply absolute pointer-events-none opacity-50 rounded-full blur-3xl;
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+/*
+ * 9. Animations
+ * ------------------------------------------------------------------------ */
+@layer utilities {
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .animate-gradient-shift {
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+/*
+ * 10. Utilities
+ * ------------------------------------------------------------------------ */
+@layer utilities {
+  .backdrop-blur {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+}

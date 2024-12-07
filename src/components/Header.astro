@@ -1,0 +1,25 @@
+---
+const navItems = [
+  { href: '/', text: 'HOME' },
+  { href: '/archive', text: 'ARCHIVE' },
+];
+---
+
+<header class="fixed w-full top-0 z-50 backdrop-blur-md bg-black/30">
+  <div class="container mx-auto px-4">
+    <nav class="flex justify-between items-center h-20">
+      <a href="/" class="text-3xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-ye animate-gradient-shift bg-[size:200%]">
+        YE QUOTES
+      </a>
+      <ul class="flex space-x-8">
+        {navItems.map(item => (
+          <li>
+            <a href={item.href} class="nav-link font-bold tracking-wide">
+              {item.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>

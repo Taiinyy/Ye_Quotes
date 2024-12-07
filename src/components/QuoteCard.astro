@@ -1,0 +1,90 @@
+---
+interface Props {
+  quote: string;
+  date?: string;
+}
+
+const { quote, date } = Astro.props;
+---
+
+<div class="quote-card p-8 transform hover:scale-[1.02] transition-all duration-300">
+  <div class="quote-card-inner">
+    <div class="flex justify-between items-start gap-4">
+      <blockquote class="text-3xl font-bold mb-6 leading-relaxed text-transparent bg-clip-text bg-gradient-ye animate-gradient-shift bg-[size:200%]">
+        "{quote}"
+      </blockquote>
+      <button
+        class="copy-button flex items-center justify-center p-2 rounded-lg hover:bg-white/10 transition-colors"
+        aria-label="Copy quote"
+        data-quote={quote}
+      >
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          class="h-6 w-6 text-ye-yellow"
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor"
+        >
+          <path 
+            stroke-linecap="round" 
+            stroke-linejoin="round" 
+            stroke-width="2" 
+            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+          />
+        </svg>
+      </button>
+    </div>
+    {date && <p class="text-ye-silver text-sm">{date}</p>}
+    <p class="text-right text-ye-yellow mt-6 font-bold">- YE</p>
+  </div>
+</div>
+
+<script>
+  function setupCopyButtons() {
+    const copyButtons = document.querySelectorAll('.copy-button');
+    
+    copyButtons.forEach(button => {
+      button.addEventListener('click', async () => {
+        const quote = button.getAttribute('data-quote');
+        if (!quote) return;
+
+        try {
+          await navigator.clipboard.writeText(quote);
+          
+          // Visual feedback
+          const icon = button.querySelector('svg');
+          if (icon) {
+            icon.innerHTML = `
+              <path 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="2" 
+                d="M5 13l4 4L19 7"
+              />
+            `;
+            
+            // Reset icon after 2 seconds
+            setTimeout(() => {
+              icon.innerHTML = `
+                <path 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round" 
+                  stroke-width="2" 
+                  d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+                />
+              `;
+            }, 2000);
+          }
+        } catch (err) {
+          console.error('Failed to copy text:', err);
+        }
+      });
+    });
+  }
+
+  // Setup on initial load
+  setupCopyButtons();
+
+  // Setup when content updates (for when new quotes are loaded)
+  document.addEventListener('astro:after-swap', setupCopyButtons);
+</script>
