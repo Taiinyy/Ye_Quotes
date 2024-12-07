@@ -59,3 +59,4 @@ MIT License - Feel free to use this project for your own learning and developmen
 - Inspired by Kanye West's artistic vision
 - Project made just for fun.
 - Community-driven development
+- Special thanks to [ajzbc](https://github.com/ajzbc) for creating the [Kanye REST API](https://github.com/ajzbc/kanye.rest), which powers this application.
